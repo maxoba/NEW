@@ -8,3 +8,11 @@ provider "aws" {
         Name = "action-test-vpc"
     }
  }
+
+ terraform {
+    backend "s3" {
+        bucket = "maxomo1"
+        key = "github-action/terraform.tfstate"
+        region = "us-west-2"
+    }
+ }
