@@ -11,5 +11,7 @@ jobs:
     steps:
       - name: echo
         run: echo "Running terraform"
-      - name: check
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: check  
         run: ls                
