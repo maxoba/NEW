@@ -4,14 +4,27 @@ on:
   push:
     branches:
       - main
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_KEY }}      
       
 jobs:
   terraform:
     runs-on: ubuntu-latest
     steps:
-      - name: echo
-        run: echo "Running terraform"
       - name: checkout
         uses: actions/checkout@v4
-      - name: check  
-        run: ls                
+      - name: install terraform
+        uses: hashicorp/setup-terraform@v3
+      - name: check
+        run: |
+          terraform init
+          terraform validate
+          terraform fmt -recursive
+           terraform fmt -recursive 
+      - name: plan
+        run:  terraform plan
+      - name: apply
+        run: terraform destroy -auto-approve  
+                                     
